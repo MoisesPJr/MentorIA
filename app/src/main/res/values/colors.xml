@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Cores para o tema escuro -->
-    <color name="primary_dark">#6D4C41</color> <!-- Marrom escuro -->
-    <color name="secondary_dark">#8D6E63</color> <!-- Marrom médio -->
-    <color name="tertiary_dark">#A1887F</color> <!-- Marrom claro -->
-    <color name="background_dark">#3E2723</color> <!-- Fundo escuro -->
-    <color name="surface_dark">#5D4037</color> <!-- Superfície escura -->
-    <color name="on_primary_dark">#FFFFFF</color> <!-- Texto em cima do primary -->
-    <color name="on_secondary_dark">#000000</color> <!-- Texto em cima do secondary -->
-
-    <!-- Cores para o tema claro -->
-    <color name="primary_light">#8D6E63</color> <!-- Marrom médio -->
-    <color name="secondary_light">#BCAAA4</color> <!-- Marrom mais claro -->
-    <color name="tertiary_light">#D7CCC8</color> <!-- Marrom bem claro -->
-    <color name="background_light">#F5F5F5</color> <!-- Fundo claro -->
-    <color name="surface_light">#F1E5D5</color> <!-- Superfície clara -->
-    <color name="on_primary_light">#000000</color> <!-- Texto em cima do primary -->
-    <color name="on_secondary_light">#FFFFFF</color> <!-- Texto em cima do secondary -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

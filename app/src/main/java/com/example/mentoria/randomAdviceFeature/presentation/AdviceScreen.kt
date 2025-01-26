@@ -20,34 +20,34 @@ import java.lang.reflect.Modifier
 @Composable
 fun AdviceScreen(
     uiState: RandomAdviceState,
-    navigateToSearchAdvice: () -> Unit
+    refreshAdvice: () -> Unit
 ) {
 
     val advice = uiState.advice
     val isLoading = uiState.isLoading
+    val error = uiState.error
 
-    if (isLoading) {
-        LoadingScreen()
-    } else {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(R.string.advice_random_title),
-                            color = Color.Black
-                        )
-                    },
-                )
-            },
-            content = { paddingValues ->
-                AdviceContent(
-                    advice = advice,
-                    refreshClick = {},
-                    paddingValues = paddingValues,
-                    searchClick = { navigateToSearchAdvice },
-                )
-            }
-        )
-    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(R.string.advice_random_title),
+                        color = Color.Black
+                    )
+                },
+            )
+        },
+        content = { paddingValues ->
+            AdviceContent(
+                advice = advice,
+                refreshClick = refreshAdvice,
+                paddingValues = paddingValues,
+                shareClick = {  },
+                error = error,
+                isLoading = isLoading
+            )
+        }
+    )
 }

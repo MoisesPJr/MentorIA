@@ -15,9 +15,18 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.mentoria.core.utils.createImageFromText
+import com.example.mentoria.core.utils.shareImage
+import com.example.mentoria.core.utils.translateText
 import com.example.mentoria.randomAdviceFeature.domain.model.Advice
 
 @Composable
@@ -26,8 +35,23 @@ fun AdviceContent(
     advice: Advice,
     paddingValues: PaddingValues,
     refreshClick: () -> Unit,
-    searchClick: () -> Unit
+    shareClick: () -> Unit,
+    error: String,
+    isLoading: Boolean
 ) {
+    val localContext = LocalContext.current
+
+    var translatedText by remember { mutableStateOf("") }
+
+
+    LaunchedEffect(advice.slip.advice) {
+        translateText(advice.slip.advice, onSuccess = { translated ->
+            translatedText = translated
+        }, onFailure = { errorMessage ->
+            translatedText = errorMessage
+        })
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -40,6 +64,7 @@ fun AdviceContent(
             verticalArrangement = Arrangement.Center,
             modifier = modifier.padding(24.dp)
         ) {
+
             Card(
                 shape = RoundedCornerShape(16.dp),
                 elevation = CardDefaults.cardElevation(8.dp),
@@ -52,7 +77,9 @@ fun AdviceContent(
             ) {
                 AdviceItem(
                     modifier = Modifier.padding(16.dp),
-                    advice = advice
+                    advice = translatedText,
+                    error = error,
+                    isLoading = isLoading
                 )
             }
 
@@ -61,7 +88,10 @@ fun AdviceContent(
             AdviceButtons(
                 modifier = Modifier.fillMaxWidth(),
                 refreshClick = refreshClick,
-                searchClick = searchClick
+                shareClick = {
+                    val imageFile = createImageFromText(translatedText)
+                    shareImage(localContext, imageFile)
+                }
             )
         }
     }

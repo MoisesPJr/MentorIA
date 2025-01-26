@@ -19,9 +19,10 @@ fun NavigationGraph(navController: NavHostController){
 
             val viewmodel : RandomAdviceViewModel = hiltViewModel()
             val uiState =  viewmodel.uiState
+
             AdviceScreen(
                 uiState = uiState,
-                navigateToSearchAdvice = {}
+                refreshAdvice = { viewmodel.getRandomAdvice() }
             )
         }
     }

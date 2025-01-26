@@ -5,5 +5,6 @@ import com.example.mentoria.randomAdviceFeature.domain.model.Slip
 
 data class RandomAdviceState(
     val advice: Advice= Advice(Slip(0,"")),
-    val isLoading:Boolean = true
+    val isLoading:Boolean = true,
+    val error: String = "",
 )

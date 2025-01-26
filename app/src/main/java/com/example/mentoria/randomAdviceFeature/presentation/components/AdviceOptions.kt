@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun AdviceButtons(
     modifier: Modifier = Modifier,
     refreshClick: () -> Unit,
-    searchClick: () -> Unit
+    shareClick: () -> Unit
 ) {
 
     Column(
@@ -29,7 +29,7 @@ fun AdviceButtons(
     ) {
 
         Button(
-            onClick = refreshClick,
+            onClick = { refreshClick() },
             modifier = Modifier.fillMaxWidth(),
             shape = androidx.compose.material3.MaterialTheme.shapes.medium,
             colors = ButtonDefaults.buttonColors(
@@ -48,7 +48,7 @@ fun AdviceButtons(
         Spacer(modifier = modifier.height(16.dp))
 
         Button(
-            onClick = searchClick,
+            onClick = {shareClick()},
             modifier = Modifier.fillMaxWidth(),
             shape = androidx.compose.material3.MaterialTheme.shapes.medium,
             colors = ButtonDefaults.buttonColors(
@@ -56,7 +56,7 @@ fun AdviceButtons(
             )
         ) {
             Text(
-                text = "Pesquisar por tema",
+                text = "Compartilhar",
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -64,13 +64,4 @@ fun AdviceButtons(
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewAdviceButtons() {
-    AdviceButtons(
-        refreshClick = {},
-        searchClick = {}
-    )
 }

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.services)
 }
 
 android {
@@ -86,4 +87,7 @@ dependencies {
     kspAndroidTest(libs.hilt.android.compiler)
     implementation (libs.androidx.navigation.compose)
     implementation (libs.androidx.hilt.navigation.compose)
+    implementation (libs.firebase.ml.natural.language)
+    implementation (libs.firebase.ml.natural.language.translate.model)
+    implementation (libs.accompanist.permissions)
 }

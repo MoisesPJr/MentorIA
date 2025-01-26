@@ -1,5 +1,8 @@
 [versions]
+accompanistPermissions = "0.24.13-rc"
 agp = "8.5.2"
+firebaseMlNaturalLanguage = "22.0.0"
+firebaseMlNaturalLanguageTranslateModel = "20.0.8"
 hiltNavigationCompose = "1.2.0"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
@@ -12,6 +15,7 @@ composeBom = "2025.01.00"
 moshi = "1.15.0"
 moshiKotlin = "1.15.0"
 hilt = "2.48.1"
+google-services = "4.4.2"
 hilt-lifecycle = "1.0.0-alpha03"
 ksp_plugin = "1.9.10-1.0.13"
 logging-interceptor = "4.12.0"
@@ -19,12 +23,17 @@ navigationCompose = "2.8.5"
 retrofit = "2.9.0"
 scalars-converter = "2.9.0"
 okhttp = "4.12.0"
+translate = "17.0.3"
+common = "18.11.0"
 
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+firebase-ml-natural-language = { module = "com.google.firebase:firebase-ml-natural-language", version.ref = "firebaseMlNaturalLanguage" }
+firebase-ml-natural-language-translate-model = { module = "com.google.firebase:firebase-ml-natural-language-translate-model", version.ref = "firebaseMlNaturalLanguageTranslateModel" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -53,8 +62,10 @@ moshi-converter = { group = "com.squareup.retrofit2", name = "converter-moshi", 
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging-interceptor" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp_plugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+services = { id = "com.google.gms.google-services", version.ref = "google-services" }
