@@ -1,21 +1,30 @@
 package com.example.mentoria.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 
 
-private val LightColorScheme = lightColorScheme(
+val LightColors = lightColorScheme(
     primary = primaryLight,
     secondary = secondaryLight,
     tertiary = tertiaryLight,
     background = backgroundLight,
     surface = surfaceLight,
     onPrimary = onPrimaryLight,
-    onSecondary = onSecondaryLight,
-    onBackground = Color.Black,
-    onSurface = Color.Black
+    onSecondary = onSecondaryLight
+)
+
+val DarkColors = darkColorScheme(
+    primary = primaryDark,
+    secondary = secondaryDark,
+    tertiary = tertiaryDark,
+    background = backgroundDark,
+    surface = surfaceDark,
+    onPrimary = onPrimaryDark,
+    onSecondary = onSecondaryDark
 )
 
 
@@ -23,8 +32,9 @@ private val LightColorScheme = lightColorScheme(
 fun MentorIATheme(
     content: @Composable () -> Unit
 ) {
+    val isDark = isSystemInDarkTheme()
     MaterialTheme(
-        colorScheme = LightColorScheme,
+        colorScheme = if(isDark) DarkColors else LightColors,
         typography = Typography,
         content = content
     )

@@ -90,4 +90,6 @@ dependencies {
     implementation (libs.firebase.ml.natural.language)
     implementation (libs.firebase.ml.natural.language.translate.model)
     implementation (libs.accompanist.permissions)
+    testImplementation (libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
 }

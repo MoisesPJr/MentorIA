@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,7 +32,6 @@ fun AdviceContent(
     advice: Advice,
     paddingValues: PaddingValues,
     refreshClick: () -> Unit,
-    shareClick: () -> Unit,
     error: String,
     isLoading: Boolean
 ) {
@@ -64,30 +60,17 @@ fun AdviceContent(
             verticalArrangement = Arrangement.Center,
             modifier = modifier.padding(24.dp)
         ) {
-
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                elevation = CardDefaults.cardElevation(8.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-            ) {
-                AdviceItem(
-                    modifier = Modifier.padding(16.dp),
-                    advice = translatedText,
-                    error = error,
-                    isLoading = isLoading
-                )
-            }
-
+            AdviceItem(
+                modifier = Modifier.padding(16.dp),
+                advice = translatedText,
+                error = error,
+                refreshClick = refreshClick,
+                isLoading = isLoading
+            )
             Spacer(modifier = Modifier.height(24.dp))
 
             AdviceButtons(
                 modifier = Modifier.fillMaxWidth(),
-                refreshClick = refreshClick,
                 shareClick = {
                     val imageFile = createImageFromText(translatedText)
                     shareImage(localContext, imageFile)
