@@ -1,6 +1,8 @@
 package com.example.mentoria.randomAdviceFeature.data.repository
 
+import com.example.mentoria.favoriteAdvice.data.model.AdviceEntityRemote
 import com.example.mentoria.randomAdviceFeature.data.model.AdviceRemote
+import com.example.mentoria.randomAdviceFeature.data.model.SlipRemote
 import com.example.mentoria.randomAdviceFeature.domain.repository.AdviceRepository
 import com.example.mentoria.randomAdviceFeature.domain.source.AdviceDataSource
 import kotlinx.coroutines.flow.Flow

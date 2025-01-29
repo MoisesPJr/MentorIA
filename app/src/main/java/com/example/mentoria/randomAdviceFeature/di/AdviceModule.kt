@@ -1,5 +1,8 @@
 package com.example.mentoria.randomAdviceFeature.di
 
+import android.content.Context
+import androidx.room.Room
+import com.example.mentoria.favoriteAdvice.data.db.AdviceDb
 import com.example.mentoria.randomAdviceFeature.data.repository.AdviceRepositoryImpl
 import com.example.mentoria.randomAdviceFeature.data.service.AdviceApi
 import com.example.mentoria.randomAdviceFeature.data.source.AdviceDataSourceImpl
@@ -10,6 +13,7 @@ import com.example.mentoria.randomAdviceFeature.domain.useCase.GetRandomAdviceUs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -20,20 +24,19 @@ object AdviceModule {
 
     @Provides
     @Singleton
-    fun providesAdviceDataSource(api:AdviceApi): AdviceDataSource{
+    fun providesAdviceDataSource(api: AdviceApi): AdviceDataSource {
         return AdviceDataSourceImpl(api)
     }
 
     @Provides
     @Singleton
-    fun providesAdviceRepository(dataSource:AdviceDataSource): AdviceRepository{
+    fun providesAdviceRepository(dataSource: AdviceDataSource): AdviceRepository {
         return AdviceRepositoryImpl(dataSource)
     }
 
     @Provides
     @Singleton
-    fun providesGetAdviceUseCase(adviceRepository: AdviceRepository):GetRandomAdviceUseCase{
+    fun providesGetAdviceUseCase(adviceRepository: AdviceRepository): GetRandomAdviceUseCase {
         return GetRandomAdviceUseCaseImpl(adviceRepository)
     }
-
 }

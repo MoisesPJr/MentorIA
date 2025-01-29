@@ -5,24 +5,37 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.mentoria.favoriteAdvice.presentation.FavoritesAdviceScreen
+import com.example.mentoria.favoriteAdvice.presentation.FavoritesAdviceViewModel
 import com.example.mentoria.randomAdviceFeature.presentation.AdviceScreen
 import com.example.mentoria.randomAdviceFeature.presentation.RandomAdviceViewModel
 
 @Composable
-fun NavigationGraph(navController: NavHostController){
+fun NavigationGraph(navController: NavHostController) {
 
     NavHost(
-        navController= navController,
-        startDestination = NavigationItems.RandomAdvice.route
-    ){
-        composable(NavigationItems.RandomAdvice.route){
+        navController = navController, startDestination = NavigationItems.RandomAdvice.route
+    ) {
+        composable(NavigationItems.RandomAdvice.route) {
+            val viewmodel: RandomAdviceViewModel = hiltViewModel()
+            val uiState = viewmodel.uiState
+            val setFavorite = viewmodel::setFavoriteAdvice
 
-            val viewmodel : RandomAdviceViewModel = hiltViewModel()
-            val uiState =  viewmodel.uiState
+            AdviceScreen(uiState = uiState,
+                refreshAdvice = { viewmodel.getRandomAdvice() },
+                setFavoriteAdvice =  setFavorite ,
+                navigateToFavoriteScreen = {
+                    navController.navigate(NavigationItems.FavoriteAdvice.route)
+                })
+        }
 
-            AdviceScreen(
+        composable(NavigationItems.FavoriteAdvice.route) {
+            val viewmodel: FavoritesAdviceViewModel = hiltViewModel()
+            val uiState = viewmodel.uiState
+            val deleteFavorite = viewmodel::deleteFavoriteAdvice
+            FavoritesAdviceScreen(
                 uiState = uiState,
-                refreshAdvice = { viewmodel.getRandomAdvice() }
+                removeFavorite = deleteFavorite,
             )
         }
     }

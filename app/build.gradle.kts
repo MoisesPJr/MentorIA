@@ -91,5 +91,8 @@ dependencies {
     implementation (libs.firebase.ml.natural.language.translate.model)
     implementation (libs.accompanist.permissions)
     testImplementation (libs.mockito.core)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
     testImplementation(libs.mockito.kotlin)
 }

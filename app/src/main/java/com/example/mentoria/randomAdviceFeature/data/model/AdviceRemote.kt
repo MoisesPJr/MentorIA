@@ -1,6 +1,7 @@
 package com.example.mentoria.randomAdviceFeature.data.model
 
 import androidx.annotation.Keep
+import androidx.room.Entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -9,7 +10,6 @@ import com.squareup.moshi.JsonClass
 data class AdviceRemote(
     @Json(name = "slip") val slip: SlipRemote
 )
-
 @Keep
 @JsonClass(generateAdapter = true)
 data class SlipRemote(

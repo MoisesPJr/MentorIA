@@ -7,4 +7,5 @@ data class RandomAdviceState(
     val advice: Advice= Advice(Slip(0,"")),
     val isLoading:Boolean = true,
     val error: String = "",
+    val isFavorite : Boolean = false
 )

@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AdviceButtons(
     modifier: Modifier = Modifier,
-    shareClick: () -> Unit
+    shareClick: () -> Unit,
 ) {
 
     Column(
