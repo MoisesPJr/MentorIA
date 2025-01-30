@@ -6,8 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mentoria.core.utils.ResultData
-import com.example.mentoria.core.utils.translateText
-import com.example.mentoria.favoriteAdvice.domain.AdviceEntity
 import com.example.mentoria.favoriteAdvice.domain.mapper.toAdviceEntity
 import com.example.mentoria.favoriteAdvice.domain.useCase.SetFavoriteAdviceUseCase
 import com.example.mentoria.randomAdviceFeature.domain.model.Advice
@@ -39,13 +37,16 @@ class RandomAdviceViewModel @Inject constructor(
                 .collect { resultData ->
                     uiState = when (resultData) {
                         is ResultData.Success -> {
+                            val advice = resultData.data?.slip?.let {
+                                Advice(Slip(it.id, it.advice))
+                            } ?: uiState.advice
+                            val adviceLog = uiState.advices.toMutableList()
+                                .apply { add(advice.toAdviceEntity()) }
                             uiState.copy(
                                 isLoading = false,
                                 error = "",
-                                advice = resultData.data?.slip?.let {
-                                    Advice(Slip(it.id, it.advice))
-                                } ?: uiState.advice,
-                                isFavorite = false
+                                advice = advice,
+                                advices = adviceLog
                             )
                         }
 
@@ -53,7 +54,6 @@ class RandomAdviceViewModel @Inject constructor(
                             uiState.copy(
                                 error = "Ocorreu um erro, tente novamente",
                                 isLoading = false,
-                                isFavorite = true
                             )
                         }
 
@@ -62,7 +62,6 @@ class RandomAdviceViewModel @Inject constructor(
                                 isLoading = true,
                                 advice = Advice(Slip(0, "")),
                                 error = "",
-                                isFavorite = true
                             )
                         }
                     }
@@ -76,9 +75,6 @@ class RandomAdviceViewModel @Inject constructor(
                 params = SetFavoriteAdviceUseCase.Params(
                     adviceEntity = advice.toAdviceEntity()
                 )
-            )
-            uiState = uiState.copy(
-                isFavorite = true
             )
         }
     }

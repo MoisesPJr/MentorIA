@@ -17,7 +17,7 @@ fun AdviceScreen(
     val advice = uiState.advice
     val isLoading = uiState.isLoading
     val error = uiState.error
-    val isFavorite = uiState.isFavorite
+    val advices = uiState.advices
 
 
     Scaffold(content = { paddingValues ->
@@ -29,7 +29,7 @@ fun AdviceScreen(
             isLoading = isLoading,
             setFavoriteAdvice = setFavoriteAdvice,
             navigateToFavoriteScreen = navigateToFavoriteScreen,
-            isFavoriteAdvice = isFavorite
+            advices = advices
         )
     })
 }

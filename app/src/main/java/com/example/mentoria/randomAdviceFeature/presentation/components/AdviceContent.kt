@@ -1,6 +1,5 @@
 package com.example.mentoria.randomAdviceFeature.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,13 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +31,10 @@ import androidx.compose.ui.unit.dp
 import com.example.mentoria.core.utils.createImageFromText
 import com.example.mentoria.core.utils.shareImage
 import com.example.mentoria.core.utils.translateText
+import com.example.mentoria.core.utils.translateTexts
+import com.example.mentoria.coreUi.AdvicesListScreen
 import com.example.mentoria.favoriteAdvice.domain.AdviceEntity
+import com.example.mentoria.favoriteAdvice.domain.mapper.toAdvice
 import com.example.mentoria.randomAdviceFeature.domain.model.Advice
 import com.example.mentoria.randomAdviceFeature.domain.model.Slip
 
@@ -49,13 +48,12 @@ fun AdviceContent(
     isLoading: Boolean,
     setFavoriteAdvice: (Advice) -> Unit,
     navigateToFavoriteScreen: () -> Unit,
-    isFavoriteAdvice: Boolean
+    advices: List<AdviceEntity>
 ) {
     val localContext = LocalContext.current
 
     var translatedText by remember { mutableStateOf("") }
-
-
+    var translatedAdvices by remember { mutableStateOf(emptyList<AdviceEntity>()) }
     LaunchedEffect(advice.slip.advice) {
         translateText(advice.slip.advice, onSuccess = { translated ->
             translatedText = translated
@@ -64,7 +62,15 @@ fun AdviceContent(
         })
     }
 
-    Column {
+    LaunchedEffect(advices) {
+        translateTexts(advices, onSuccess = { translated ->
+            translatedAdvices = translated
+        }, onFailure = { errorMessage ->
+            translatedText = errorMessage
+        })
+    }
+
+    Column(modifier.fillMaxSize()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
@@ -88,40 +94,40 @@ fun AdviceContent(
             }
         }
 
-
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .background(MaterialTheme.colorScheme.background),
-            contentAlignment = Alignment.Center
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(24.dp)
         ) {
+            AdviceItem(
+                modifier = Modifier.padding(16.dp),
+                advice = Advice(Slip(id = advice.slip.id, advice = translatedText)),
+                error = error,
+                refreshClick = refreshClick,
+                isLoading = isLoading,
+            )
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = modifier.padding(24.dp)
-            ) {
-                AdviceItem(
-                    modifier = Modifier.padding(16.dp),
-                    advice = Advice(Slip(id = advice.slip.id, advice = translatedText)),
-                    error = error,
-                    refreshClick = refreshClick,
-                    isLoading = isLoading,
-                    setFavorite = {adviceFavorite ->
-                        setFavoriteAdvice(adviceFavorite) },
-                    isFavorite = isFavoriteAdvice
-                )
-                Spacer(modifier = Modifier.height(24.dp))
+            AdviceButtons(
+                modifier = Modifier.fillMaxWidth(),
+                shareClick = {
+                    val imageFile = createImageFromText(translatedText)
+                    shareImage(localContext, imageFile)
+                }
+            )
+        }
 
-                AdviceButtons(
-                    modifier = Modifier.fillMaxWidth(),
-                    shareClick = {
-                        val imageFile = createImageFromText(translatedText)
-                        shareImage(localContext, imageFile)
-                    }
-                )
-            }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Box(modifier = Modifier.weight(1f)) {
+            AdvicesListScreen(
+                paddingValues = paddingValues,
+                action = { adviceFavorite ->
+                    setFavoriteAdvice(adviceFavorite.toAdvice())
+                },
+                actionIcon = Icons.Default.Favorite,
+                advices = translatedAdvices
+            )
         }
     }
 }

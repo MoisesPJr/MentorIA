@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,8 +31,6 @@ fun AdviceItem(
     error: String,
     isLoading: Boolean,
     refreshClick: () -> Unit,
-    setFavorite: ( Advice) -> Unit,
-    isFavorite: Boolean
 ) {
 
     Box(
@@ -71,20 +68,6 @@ fun AdviceItem(
                         contentDescription = "Refresh",
                         tint = MaterialTheme.colorScheme.primary
                     )
-                }
-                if(!isFavorite){
-                    IconButton(
-                        onClick = {
-                            setFavorite(advice)
-                        },
-
-                        ) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = "Favorite",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
                 }
             }
         }
