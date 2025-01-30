@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mentoria"
+    namespace = "com.mjtech.mentoria"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.mentoria"
+        applicationId = "com.mjtech.mentoria"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
